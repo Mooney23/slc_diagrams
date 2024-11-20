@@ -24,7 +24,7 @@ flowchart
     II --> JJ{if suborg_config != Daily & initial alarm counts == 0}
     JJ --> |FALSE| I
     JJ --> |TRUE| J(Get users in current suborg<br>C)
-    J --> K(Get user/asset associations for current suborg from D)
+    J --> K(Get user/asset associations for current suborg from D<br>F)
 
     K --> L(Invoke user specific function)
     subgraph User Specific Emails
@@ -39,10 +39,26 @@ flowchart
     R --> |FALSE| N
     S --> |TRUE| Q
     S --> |FALSE| N
-    Q --> T(Send email for user)
+    Q --> T(Send email only for valid user)
     T --> N
     end
 
     N --> |FALSE| U(Get alarms objects for current suborg)
+    U --> V(Remove users with asset associations from sending list for current suborg<br>C - F)
+    V --> W(Check sending conditions)
+    W --> X(Daily)
+    X --> Y(Remove public inbox users)
+    W --> WW(Count based)
+    WW --> AB{Alarm counts > 0}
+    AB --> |TRUE| Y
+    AB --> |FALSE| I
+    W --> CD(Only new)
+    CD --> AAA{New status count > 0}
+    AAA --> |TRUE| Y
+    AAA --> |FALSE| I
+    Y --> CCC(Construct email)
+    CCC --> DDD(Send email to valid users)
+
+    
     
 ```
