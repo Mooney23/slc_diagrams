@@ -12,6 +12,7 @@ sequenceDiagram
     Device ->> Cloud: d2c_update(Ingestion lambda)
     Note right of Device: 1500 Hrs
     Note left of Redis DB: Current Time = 1502 Hrs<br/>Write next connection expiry time NCE<br/>Next check-in time(epoch) NCT<br/>Delta 72 hours<br/>NCT is 23 Hrs 58 Min from now<br/>NCE = NCT + 72<br/>NCE = Day 5@1500 Hrs<br/>~96 Hours till expiry
+    Cloud ->> Redis DB: Write NCE
 
 
     Note left of Device: Day 2
