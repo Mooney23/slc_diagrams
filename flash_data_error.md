@@ -14,7 +14,8 @@ flowchart TD
     Z{devices remaining} --> |TRUE| E
     F --> |TRUE| G(Get data flags and streak counter for device)
     G --> H{Is flash error detected}
-    H --> |FALSE| X
+    H --> |FALSE| W(Reset streak counter)
+    W --> X
     H --> |TRUE| I{is_incremented}
     I --> |TRUE| X
     I --> |FALSE| J(Set incremented flag = true and ++streak_count)
